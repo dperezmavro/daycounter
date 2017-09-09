@@ -108,6 +108,10 @@ func (d *Date) AddMonths(number uint) {
 	}
 }
 
+func (d *Date) AddMonth() {
+	d.AddMonths(1)
+}
+
 func (d *Date) AddDay() {
 	if d.DaysInMonth() >= d.DayOfMonth+1 {
 		d.DayOfMonth++
