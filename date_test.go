@@ -39,6 +39,10 @@ func TestDateInit(t *testing.T) {
 		makeTestDate(nil, 1990, 0, 0),
 		makeTestDate(nil, 1992, 15, 0),
 		makeTestDate(nil, 2015, 9, 31),
+		makeTestDate(nil, 1992, 12, 40),
+		makeTestDate(nil, 2015, 2, 30),
+		makeTestDate(nil, 2015, 2, 29),
+		makeTestDate(nil, 2015, 4, 31),
 
 		//valid date
 		makeTestDate(&Date{3, 10, 1}, 1, 10, 3),
