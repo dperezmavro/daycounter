@@ -104,6 +104,15 @@ func (d *Date) AddMonths(number uint) {
 
 	if d.MonthOfYear > 12 {
 		d.MonthOfYear = d.MonthOfYear % 12
-		d.Year += 1
+		d.Year++
+	}
+}
+
+func (d *Date) AddDay() {
+	if d.DaysInMonth() >= d.DayOfMonth+1 {
+		d.DayOfMonth++
+	} else {
+		d.AddMonths(1)
+		d.DayOfMonth = 1
 	}
 }

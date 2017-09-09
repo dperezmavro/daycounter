@@ -69,6 +69,30 @@ func TestNumberOfDays(t *testing.T) {
 				EndDate:   makeDate(5, 10, 1991)},
 			3,
 		),
+		makeTest(
+			&DateRange{
+				StartDate: makeDate(1, 10, 1991),
+				EndDate:   makeDate(1, 11, 1991)},
+			32,
+		),
+		makeTest(
+			&DateRange{
+				StartDate: makeDate(5, 10, 1991),
+				EndDate:   makeDate(1, 11, 1991)},
+			28,
+		),
+		makeTest(
+			&DateRange{
+				StartDate: makeDate(1, 1, 2016),
+				EndDate:   makeDate(31, 12, 2016)},
+			366,
+		),
+		makeTest(
+			&DateRange{
+				StartDate: makeDate(1, 1, 2016),
+				EndDate:   makeDate(4, 1, 2017)},
+			370,
+		),
 	}
 
 	for i, testV := range tests {

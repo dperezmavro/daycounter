@@ -221,7 +221,7 @@ func TestGetAddMonths(t *testing.T) {
 		},
 		test{
 			startDate: makeDate(10, 1, 2001),
-			endDate:   makeDate(10, 5, 2012),
+			endDate:   makeDate(10, 5, 2002),
 			diff:      16,
 		},
 	}

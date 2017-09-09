@@ -24,5 +24,11 @@ func NewDateRange(start, end *Date) (*DateRange, error) {
 }
 
 func (dr *DateRange) NumberOfDays() uint {
-	return 1
+	dummyDate := dr.StartDate
+	var count uint = 1
+	for !dummyDate.Equals(dr.EndDate) {
+		count++
+		dummyDate.AddDay()
+	}
+	return count
 }
