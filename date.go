@@ -6,8 +6,20 @@ type Date struct {
 	Year        uint
 }
 
-var thirtyDayMonths = []uint{4, 6, 9, 11}
-var thirtyOneDayMonths = []uint{1, 3, 5, 7, 8, 10, 12}
+var daysInMonth = map[uint]uint{
+	1:  31,
+	2:  28,
+	3:  31,
+	4:  30,
+	5:  31,
+	6:  30,
+	7:  31,
+	8:  31,
+	9:  30,
+	10: 31,
+	11: 30,
+	12: 31,
+}
 
 const february = 2
 
@@ -38,18 +50,16 @@ func isLeapYear(y uint) bool {
 	return false
 }
 
+func inRange(start, end, val uint) bool {
+	return val >= start && val <= end
+}
+
 func isValid(dayOfMonth, monthOfYear, year uint) bool {
 
-	if year > 0 && monthOfYear >= 1 && monthOfYear <= 12 && dayOfMonth >= 1 && dayOfMonth <= 31 {
-		var maxDay uint = 28
-		if monthOfYear == february {
-			if isLeapYear(year) {
-				maxDay = 29
-			}
-		} else if find(monthOfYear, thirtyDayMonths) {
-			maxDay = 30
-		} else if find(monthOfYear, thirtyOneDayMonths) {
-			maxDay = 31
+	if year > 0 && inRange(1, 12, monthOfYear) && inRange(1, 31, dayOfMonth) {
+		var maxDay = daysInMonth[monthOfYear]
+		if monthOfYear == february && isLeapYear(year) {
+			maxDay = 29
 		}
 
 		return dayOfMonth <= maxDay
