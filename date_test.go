@@ -167,6 +167,10 @@ func TestGetDaysInMonth(t *testing.T) {
 			daysInMonth: 31,
 		},
 		test{
+			date:        makeDate(30, 6, 1997),
+			daysInMonth: 30,
+		},
+		test{
 			date:        makeDate(1, 2, 2016),
 			daysInMonth: 29,
 		},
