@@ -6,38 +6,38 @@ func TestNewDateRange(t *testing.T) {
 	type test struct {
 		dateRange  *DateRange
 		start, end *Date
+		isError    bool
 	}
 
-	makeTest := func(dr *DateRange, d1, d2 *Date) test {
+	makeTest := func(dr *DateRange, d1, d2 *Date, nilerr bool) test {
 		return test{
 			dateRange: dr,
 			start:     d1,
 			end:       d2,
+			isError:   nilerr,
 		}
 	}
 
 	tests := []test{
-		makeTest(nil, nil, nil),
+		makeTest(nil, nil, nil, true),
 		makeTest(
 			&DateRange{StartDate: makeDate(3, 10, 1991), EndDate: makeDate(3, 10, 1993)},
 			makeDate(3, 10, 1991),
 			makeDate(3, 10, 1993),
+			false,
 		),
 		makeTest(
 			nil,
 			makeDate(3, 10, 1991),
 			makeDate(3, 9, 1991),
+			true,
 		),
 	}
 
 	for i, testV := range tests {
-		got := NewDateRange(testV.start, testV.end)
-		if got == nil && testV.dateRange != nil {
-			t.Errorf(
-				"TestNewDateRange (%d) got nil when wanting %v",
-				i,
-				testV.dateRange,
-			)
+		_, err := NewDateRange(testV.start, testV.end)
+		if err == nil && testV.isError == true {
+			t.Errorf("TestNewDateRange (%d) got nil error", i)
 		}
 
 	}
