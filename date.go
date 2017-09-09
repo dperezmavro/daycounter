@@ -24,7 +24,7 @@ func find(needle uint, collection []uint) bool {
 func NewDate(d, m, y uint) *Date {
 
 	if !isValid(d, m, y) {
-		return &Date{}
+		return nil
 	}
 
 	return &Date{

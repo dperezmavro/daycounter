@@ -29,16 +29,16 @@ func TestDateInit(t *testing.T) {
 
 	tests := []*testDate{
 		// invalid dates by ranges
-		makeTestDate(&Date{0, 0, 0}, 0, 0, 0),
-		makeTestDate(&Date{0, 0, 0}, 0, 15, 0),
-		makeTestDate(&Date{0, 0, 0}, 1, 10, 0),
-		makeTestDate(&Date{0, 0, 0}, 1, 10, 33),
-		makeTestDate(&Date{0, 0, 0}, 1990, 15, 18),
+		makeTestDate(nil, 0, 0, 0),
+		makeTestDate(nil, 0, 15, 0),
+		makeTestDate(nil, 1, 10, 0),
+		makeTestDate(nil, 1, 10, 33),
+		makeTestDate(nil, 1990, 15, 18),
 
 		//invalid dates by bad date
-		makeTestDate(&Date{0, 0, 0}, 1990, 0, 0),
-		makeTestDate(&Date{0, 0, 0}, 1992, 15, 0),
-		makeTestDate(&Date{0, 0, 0}, 2015, 9, 31),
+		makeTestDate(nil, 1990, 0, 0),
+		makeTestDate(nil, 1992, 15, 0),
+		makeTestDate(nil, 2015, 9, 31),
 
 		//valid date
 		makeTestDate(&Date{3, 10, 1}, 1, 10, 3),
@@ -46,7 +46,8 @@ func TestDateInit(t *testing.T) {
 
 	for i, test := range tests {
 		got := NewDate(test.day, test.month, test.year)
-		if !test.want.Equals(got) {
+		if test.want == nil && got == nil {
+		} else if !test.want.Equals(got) {
 			t.Errorf(
 				"TestDateInit: test(%d) failed: want %v got %v",
 				i,
