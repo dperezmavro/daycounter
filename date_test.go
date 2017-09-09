@@ -137,6 +137,10 @@ func TestRemainingDaysInMonth(t *testing.T) {
 			date:          makeDate(31, 12, 1800),
 			daysRemaining: 1,
 		},
+		test{
+			date:          makeDate(15, 2, 2016),
+			daysRemaining: 15,
+		},
 	}
 
 	for i, testCase := range tests {
@@ -183,6 +187,52 @@ func TestGetDaysInMonth(t *testing.T) {
 				i,
 				testCase.daysInMonth,
 				got,
+			)
+		}
+	}
+}
+
+func TestGetAddMonths(t *testing.T) {
+	type test struct {
+		startDate, endDate *Date
+		diff               uint
+	}
+
+	tests := []test{
+		test{
+			startDate: makeDate(10, 10, 2015),
+			endDate:   makeDate(10, 12, 2015),
+			diff:      2,
+		},
+		test{
+			startDate: makeDate(10, 10, 2015),
+			endDate:   makeDate(10, 2, 2016),
+			diff:      4,
+		},
+		test{
+			startDate: makeDate(10, 2, 2015),
+			endDate:   makeDate(10, 2, 2017),
+			diff:      24,
+		},
+		test{
+			startDate: makeDate(10, 3, 2015),
+			endDate:   makeDate(10, 1, 2017),
+			diff:      22,
+		},
+		test{
+			startDate: makeDate(10, 1, 2001),
+			endDate:   makeDate(10, 5, 2012),
+			diff:      16,
+		},
+	}
+
+	for i, testCase := range tests {
+		testCase.startDate.AddMonths(testCase.diff)
+		if !testCase.startDate.Equals(testCase.endDate) {
+			t.Errorf("TestGetAddMonths(%d): wanted %d got %d",
+				i,
+				testCase.endDate,
+				testCase.startDate,
 			)
 		}
 	}

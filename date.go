@@ -96,5 +96,14 @@ func (d *Date) RemainingDaysInMonth() uint {
 }
 
 func (d *Date) AddMonths(number uint) {
+	extraYears := number / 12
+	d.Year += extraYears
 
+	extraMonths := number % 12
+	d.MonthOfYear += extraMonths
+
+	if d.MonthOfYear > 12 {
+		d.MonthOfYear = d.MonthOfYear % 12
+		d.Year += 1
+	}
 }
