@@ -61,3 +61,17 @@ func isValid(dayOfMonth, monthOfYear, year uint) bool {
 func (d *Date) Equals(d2 *Date) bool {
 	return d.DayOfMonth == d2.DayOfMonth && d.Year == d2.Year && d.MonthOfYear == d2.MonthOfYear
 }
+
+func (d *Date) isAfter(d2 *Date) bool {
+	if d.Year > d2.Year {
+		return true
+	} else if d.Year == d2.Year { // TODO bug
+		if d.MonthOfYear > d2.MonthOfYear {
+			return true
+		} else if d.MonthOfYear == d2.MonthOfYear {
+			return d.DayOfMonth > d2.DayOfMonth
+		}
+	}
+
+	return false
+}

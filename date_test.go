@@ -80,3 +80,30 @@ func TestEquals(t *testing.T) {
 		}
 	}
 }
+
+func TestIsAfter(t *testing.T) {
+	type test struct {
+		want   bool
+		d1, d2 *Date
+	}
+	tests := []test{
+		test{want: false, d1: makeDate(0, 0, 0), d2: makeDate(0, 0, 0)},
+		test{want: true, d1: makeDate(3, 5, 1991), d2: makeDate(3, 4, 1991)},
+		test{want: false, d1: makeDate(3, 5, 1991), d2: makeDate(3, 4, 1993)},
+		test{want: false, d1: makeDate(3, 5, 1991), d2: makeDate(3, 6, 1991)},
+		test{want: false, d1: makeDate(3, 5, 1991), d2: makeDate(3, 5, 1991)},
+		test{want: true, d1: makeDate(4, 5, 1991), d2: makeDate(3, 5, 1991)},
+	}
+
+	for i, test := range tests {
+		got := test.d1.isAfter(test.d2)
+		if test.want != got {
+			t.Errorf(
+				"TestIsAfter: test(%d) failed: want %v to be after %v",
+				i,
+				test.d1,
+				test.d2,
+			)
+		}
+	}
+}
