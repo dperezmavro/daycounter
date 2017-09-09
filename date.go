@@ -6,10 +6,10 @@ type Date struct {
 	Year        uint
 }
 
-var thirtyDayMonths []uint = []uint{4, 6, 9, 11}
-var thirtyOneDayMonths []uint = []uint{1, 3, 5, 7, 8, 10, 12}
+var thirtyDayMonths = []uint{4, 6, 9, 11}
+var thirtyOneDayMonths = []uint{1, 3, 5, 7, 8, 10, 12}
 
-const February = 2
+const february = 2
 
 func find(needle uint, collection []uint) bool {
 	for _, v := range collection {
@@ -42,7 +42,7 @@ func isValid(dayOfMonth, monthOfYear, year uint) bool {
 
 	if year > 0 && monthOfYear >= 1 && monthOfYear <= 12 && dayOfMonth >= 1 && dayOfMonth <= 31 {
 		var maxDay uint = 28
-		if monthOfYear == February {
+		if monthOfYear == february {
 			if isLeapYear(year) {
 				maxDay = 29
 			}
