@@ -46,12 +46,20 @@ func TestDateInit(t *testing.T) {
 
 		//valid date
 		makeTestDate(&Date{3, 10, 1}, 1, 10, 3),
-		makeTestDate(nil, 2016, 4, 29),
+		makeTestDate(nil, 2016, 2, 29),
+		makeTestDate(&Date{29, 4, 2016}, 2016, 4, 29),
 	}
 
 	for i, test := range tests {
 		got := NewDate(test.day, test.month, test.year)
-		if test.want == nil && got == nil {
+		if test.want == nil {
+			if got != nil {
+				t.Errorf(
+					"TestDateInit: test(%d) failed: got value (%v) when expecting nil",
+					i,
+					got,
+				)
+			}
 		} else if !test.want.Equals(got) {
 			t.Errorf(
 				"TestDateInit: test(%d) failed: want %v got %v",

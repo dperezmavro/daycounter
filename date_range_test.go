@@ -42,3 +42,44 @@ func TestNewDateRange(t *testing.T) {
 
 	}
 }
+
+func TestNumberOfDays(t *testing.T) {
+	type test struct {
+		dateRange *DateRange
+		want      uint
+	}
+
+	makeTest := func(dr *DateRange, days uint) test {
+		return test{
+			dateRange: dr,
+			want:      days,
+		}
+	}
+
+	tests := []test{
+		makeTest(nil, 0),
+		// makeTest(
+		// 	&DateRange{StartDate: makeDate(3, 10, 1991), EndDate: makeDate(3, 10, 1993)},
+		// 	makeDate(3, 10, 1991),
+		// 	makeDate(3, 10, 1993),
+		// ),
+		// makeTest(
+		// 	nil,
+		// 	makeDate(3, 10, 1991),
+		// 	makeDate(3, 9, 1991),
+		// ),
+	}
+
+	for i, testV := range tests {
+		got := testV.dateRange.NumberOfDays()
+		if got != testV.want {
+			t.Errorf(
+				"TestNumberOfDays (%d) got %d NoD when wanting %v",
+				i,
+				got,
+				testV.want,
+			)
+		}
+
+	}
+}
