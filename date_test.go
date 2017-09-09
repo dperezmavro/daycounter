@@ -46,7 +46,7 @@ func TestDateInit(t *testing.T) {
 
 		//valid date
 		makeTestDate(&Date{3, 10, 1}, 1, 10, 3),
-		makeTestDate(nil, 2016, 2, 29),
+		makeTestDate(&Date{29, 2, 2016}, 2016, 2, 29),
 		makeTestDate(&Date{29, 4, 2016}, 2016, 4, 29),
 	}
 
@@ -117,6 +117,68 @@ func TestIsAfter(t *testing.T) {
 				i,
 				test.d1,
 				test.d2,
+			)
+		}
+	}
+}
+
+func TestRemainingDaysInMonth(t *testing.T) {
+	type test struct {
+		date          *Date
+		daysRemaining uint
+	}
+
+	tests := []test{
+		test{
+			date:          makeDate(10, 10, 2015),
+			daysRemaining: 22,
+		},
+		test{
+			date:          makeDate(31, 12, 1800),
+			daysRemaining: 1,
+		},
+	}
+
+	for i, testCase := range tests {
+		got := testCase.date.RemainingDaysInMonth()
+		if got != testCase.daysRemaining {
+			t.Errorf("TestRemainingDaysInMonth(%d): wanted %d got %d",
+				i,
+				testCase.daysRemaining,
+				got,
+			)
+		}
+	}
+}
+
+func TestGetDaysInMonth(t *testing.T) {
+	type test struct {
+		date        *Date
+		daysInMonth uint
+	}
+
+	tests := []test{
+		test{
+			date:        makeDate(10, 10, 2015),
+			daysInMonth: 31,
+		},
+		test{
+			date:        makeDate(31, 12, 1800),
+			daysInMonth: 31,
+		},
+		test{
+			date:        makeDate(1, 2, 2016),
+			daysInMonth: 29,
+		},
+	}
+
+	for i, testCase := range tests {
+		got := testCase.date.DaysInMonth()
+		if got != testCase.daysInMonth {
+			t.Errorf("TestGetDaysInMonth(%d): wanted %d got %d",
+				i,
+				testCase.daysInMonth,
+				got,
 			)
 		}
 	}

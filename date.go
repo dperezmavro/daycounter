@@ -47,7 +47,7 @@ func NewDate(d, m, y uint) *Date {
 }
 
 func isLeapYear(y uint) bool {
-	return false
+	return y%4 == 0 && y%400 != 0
 }
 
 func inRange(start, end, val uint) bool {
@@ -57,12 +57,8 @@ func inRange(start, end, val uint) bool {
 func isValid(dayOfMonth, monthOfYear, year uint) bool {
 
 	if year > 0 && inRange(1, 12, monthOfYear) && inRange(1, 31, dayOfMonth) {
-		var maxDay = daysInMonth[monthOfYear]
-		if monthOfYear == february && isLeapYear(year) {
-			maxDay = 29
-		}
-
-		return dayOfMonth <= maxDay
+		date := Date{0, monthOfYear, year}
+		return dayOfMonth <= date.DaysInMonth()
 	}
 
 	return false
@@ -75,7 +71,7 @@ func (d *Date) Equals(d2 *Date) bool {
 func (d *Date) isAfter(d2 *Date) bool {
 	if d.Year > d2.Year {
 		return true
-	} else if d.Year == d2.Year { // TODO bug
+	} else if d.Year == d2.Year {
 		if d.MonthOfYear > d2.MonthOfYear {
 			return true
 		} else if d.MonthOfYear == d2.MonthOfYear {
@@ -84,4 +80,21 @@ func (d *Date) isAfter(d2 *Date) bool {
 	}
 
 	return false
+}
+
+func (d *Date) DaysInMonth() uint {
+	var maxDay = daysInMonth[d.MonthOfYear]
+	if d.MonthOfYear == february && isLeapYear(d.Year) {
+		maxDay = 29
+	}
+
+	return maxDay
+}
+
+func (d *Date) RemainingDaysInMonth() uint {
+	return d.DaysInMonth() - d.DayOfMonth + 1
+}
+
+func (d *Date) AddMonths(number uint) {
+
 }
