@@ -46,6 +46,7 @@ func TestDateInit(t *testing.T) {
 
 		//valid date
 		makeTestDate(&Date{3, 10, 1}, 1, 10, 3),
+		makeTestDate(nil, 2016, 4, 29),
 	}
 
 	for i, test := range tests {
