@@ -57,12 +57,14 @@ func TestNumberOfDays(t *testing.T) {
 	}
 
 	tests := []test{
-		makeTest(nil, 0),
-		// makeTest(
-		// 	&DateRange{StartDate: makeDate(3, 10, 1991), EndDate: makeDate(3, 10, 1993)},
-		// 	makeDate(3, 10, 1991),
-		// 	makeDate(3, 10, 1993),
-		// ),
+		makeTest(
+			&DateRange{StartDate: makeDate(3, 10, 1991), EndDate: makeDate(3, 10, 1991)},
+			1,
+		),
+		makeTest(
+			&DateRange{StartDate: makeDate(3, 10, 1991), EndDate: makeDate(5, 10, 1991)},
+			3,
+		),
 		// makeTest(
 		// 	nil,
 		// 	makeDate(3, 10, 1991),

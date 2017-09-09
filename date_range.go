@@ -17,6 +17,5 @@ func NewDateRange(start, end *Date) *DateRange {
 }
 
 func (dr *DateRange) NumberOfDays() uint {
-
-	return 0
+	return 1
 }
